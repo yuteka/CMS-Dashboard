@@ -1,0 +1,130 @@
+{
+  "home": {
+    "hero": {
+      "title": {
+        "en": "Modern Solutions for Your Business",
+        "ta": "உங்கள் வணிகத்திற்கான நவீன தீர்வுகள்",
+        "hi": "आपके व्यवसाय के लिए आधुनिक समाधान"
+      },
+      "subtitle": {
+        "en": "Empowering growth through innovative technology and strategic design.",
+        "ta": "புதுமையான தொழில்நுட்பம் மற்றும் மூலோபாய வடிவமைப்பு மூலம் வளர்ச்சியை மேம்படுத்துதல்.",
+        "hi": "अभिनव तकनीक और रणनीतिक डिजाइन के माध्यम से विकास को सशक्त बनाना।"
+      },
+      "cta": {
+        "text": {
+          "en": "Get Started",
+          "ta": "தொடங்குங்கள்",
+          "hi": "शुरू करें"
+        },
+        "link": "/contact"
+      },
+      "media": {
+        "type": "image",
+        "url": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069"
+      }
+    },
+    "about": {
+      "heading": {
+        "en": "Who We Are",
+        "ta": "நாங்கள் யார்",
+        "hi": "हम कौन हैं"
+      },
+      "description": {
+        "en": "We are a team of dedicated professionals committed to delivering excellence in every project. Our mission is to bridge the gap between technology and human experience.",
+        "ta": "நாங்கள் ஒவ்வொரு திட்டத்திலும் சிறந்து விளங்க உறுதிபூண்டுள்ள அர்ப்பணிப்புள்ள நிபுணர்களின் குழு. தொழில்நுட்பத்திற்கும் மனித அனுபவத்திற்கும் இடையிலான இடைவெளியைக் குறைப்பதே எங்கள் நோக்கம்.",
+        "hi": "हम हर परियोजना में उत्कृष्टता प्रदान करने के लिए प्रतिबद्ध समर्पित पेशेवरों की एक टीम हैं। हमारा मिशन तकनीक और मानवीय अनुभव के बीच की खाई को पाटना है।"
+      },
+      "image": "https://images.unsplash.com/photo-1522071823991-b1ae316715a1?auto=format&fit=crop&q=80&w=2070"
+    },
+    "services": {
+      "heading": {
+        "en": "Our Services",
+        "ta": "எங்கள் சேவைகள்",
+        "hi": "हमारी सेवाएँ"
+      },
+      "items": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Web Development",
+            "ta": "இணைய மேம்பாடு",
+            "hi": "वेब विकास"
+          },
+          "description": {
+            "en": "Building responsive and scalable web applications tailored to your needs.",
+            "ta": "உங்கள் தேவைகளுக்கு ஏற்ப பதிலளிக்கக்கூடிய மற்றும் அளவிடக்கூடிய இணைய பயன்பாடுகளை உருவாக்குதல்.",
+            "hi": "आपकी आवश्यकताओं के अनुरूप उत्तरदायी और स्केलेबल वेब एप्लिकेशन बनाना।"
+          },
+          "icon": "Layout"
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "UI/UX Design",
+            "ta": "UI/UX வடிவமைப்பு",
+            "hi": "UI/UX डिज़ाइन"
+          },
+          "description": {
+            "en": "Creating intuitive and beautiful user interfaces for an optimal experience.",
+            "ta": "சிறந்த அனுபவத்திற்காக உள்ளுணர்வு மற்றும் அழகான பயனர் இடைமுகங்களை உருவாக்குதல்.",
+            "hi": "एक इष्टतम अनुभव के लिए सहज और सुंदर उपयोगकर्ता इंटरफेस बनाना।"
+          },
+          "icon": "Palette"
+        }
+      ]
+    },
+    "media_section": {
+      "type": "video",
+      "url": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "thumbnail": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2072"
+    },
+    "testimonials": {
+      "heading": {
+        "en": "What Our Clients Say",
+        "ta": "எங்கள் வாடிக்கையாளர்கள் கூறுவது",
+        "hi": "हमारे ग्राहक क्या कहते हैं"
+      },
+      "items": [
+        {
+          "id": "1",
+          "name": "John Doe",
+          "role": "CEO, TechCorp",
+          "feedback": {
+            "en": "Incredible service and professional team. Highly recommended!",
+            "ta": "நம்பமுடியாத சேவை மற்றும் தொழில்முறை குழு. மிகவும் பரிந்துரைக்கப்படுகிறது!",
+            "hi": "अविश्वसनीय सेवा और पेशेवर टीम। अत्यधिक अनुशंसित!"
+          },
+          "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100"
+        }
+      ]
+    },
+    "contact": {
+      "heading": {
+        "en": "Contact Us",
+        "ta": "எங்களை தொடர்பு கொள்ள",
+        "hi": "संपर्क करें"
+      },
+      "details": {
+        "email": "hello@example.com",
+        "phone": "+1 234 567 890",
+        "address": "123 Business Ave, Tech City"
+      }
+    }
+  },
+  "common": {
+    "nav": {
+      "home": { "en": "Home", "ta": "முகப்பு", "hi": "होम" },
+      "about": { "en": "About", "ta": "பற்றி", "hi": "बारे में" },
+      "services": { "en": "Services", "ta": "சேவைகள்", "hi": "सेवाएं" },
+      "contact": { "en": "Contact", "ta": "தொடர்பு", "hi": "संपर्क" }
+    },
+    "footer": {
+      "rights": {
+        "en": "All rights reserved.",
+        "ta": "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+        "hi": "सर्वाधिकार सुरक्षित।"
+      }
+    }
+  }
+}
