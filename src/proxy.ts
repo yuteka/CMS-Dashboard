@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 const locales = ['en', 'ta', 'hi'];
 const defaultLocale = 'en';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if pathname starts with a locale
@@ -14,10 +14,11 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) return;
 
-  // Exclude api, _next, and files in public
+  // Exclude api, _next, studio, and files in public
   if (
     pathname.startsWith('/api') ||
     pathname.startsWith('/_next') ||
+    pathname.startsWith('/studio') ||
     pathname.includes('.')
   ) {
     return;

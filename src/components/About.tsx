@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { urlForImage } from "@/lib/sanity.image";
 
 interface AboutProps {
