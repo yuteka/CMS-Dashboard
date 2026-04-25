@@ -10,6 +10,7 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
   const [activeLang, setActiveLang] = useState(lang || "en");
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/content")
@@ -19,14 +20,22 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
 
   const handleSave = async () => {
     setIsSaving(true);
-    const res = await fetch("/api/content", {
-      method: "POST",
-      body: JSON.stringify(content),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (res.ok) {
-      setSaveSuccess(true);
-      setTimeout(() => setSaveSuccess(false), 3000);
+    setSaveError(null);
+    try {
+      const res = await fetch("/api/content", {
+        method: "POST",
+        body: JSON.stringify(content),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (res.ok) {
+        setSaveSuccess(true);
+        setTimeout(() => setSaveSuccess(false), 3000);
+      } else {
+        const errData = await res.json();
+        setSaveError(errData.error || "Failed to save changes. If you are on Vercel, note that local file saving is not supported.");
+      }
+    } catch (err) {
+      setSaveError("Network error. Please check your connection.");
     }
     setIsSaving(false);
   };
@@ -78,18 +87,25 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
             </div>
           </div>
           
-          <button
-            onClick={handleSave}
-            disabled={isSaving}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all shadow-lg ${
-              saveSuccess 
-                ? "bg-green-500 text-white shadow-green-200" 
-                : "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200"
-            }`}
-          >
-            {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : saveSuccess ? <Check className="w-5 h-5" /> : <Save className="w-5 h-5" />}
-            {saveSuccess ? "Saved!" : "Save Changes"}
-          </button>
+          <div className="flex items-center gap-4">
+            {saveError && (
+              <span className="text-red-500 text-sm font-medium animate-pulse">
+                {saveError}
+              </span>
+            )}
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all shadow-lg ${
+                saveSuccess 
+                  ? "bg-green-500 text-white shadow-green-200" 
+                  : "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200"
+              }`}
+            >
+              {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : saveSuccess ? <Check className="w-5 h-5" /> : <Save className="w-5 h-5" />}
+              {saveSuccess ? "Saved!" : "Save Changes"}
+            </button>
+          </div>
         </div>
       </header>
 
