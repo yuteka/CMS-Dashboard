@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState } from "react";
 
+import { urlForImage } from "@/lib/sanity.image";
+
 interface MediaSectionProps {
   lang: string;
   data: any;
@@ -19,7 +21,7 @@ export default function MediaSection({ lang, data }: MediaSectionProps) {
           {!isPlaying ? (
             <>
               <img
-                src={data.thumbnail}
+                src={urlForImage(data.thumbnail)}
                 alt="Video thumbnail"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

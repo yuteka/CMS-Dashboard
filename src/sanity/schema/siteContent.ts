@@ -31,7 +31,8 @@ export default defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'type', type: 'string', options: { list: ['image', 'video'] } }),
-                defineField({ name: 'url', type: 'string' }),
+                defineField({ name: 'url', type: 'string', title: 'Video URL (YouTube/Direct)' }),
+                defineField({ name: 'image', type: 'image', title: 'Image Upload', options: { hotspot: true } }),
               ]
             }),
           ]
@@ -44,7 +45,7 @@ export default defineType({
           fields: [
             defineField({ name: 'heading', type: 'localeString' }),
             defineField({ name: 'description', type: 'localeText' }),
-            defineField({ name: 'image', type: 'string', title: 'Image URL' }),
+            defineField({ name: 'image', type: 'image', options: { hotspot: true } }),
           ]
         }),
         // Services Section
@@ -77,7 +78,7 @@ export default defineType({
           fields: [
             defineField({ name: 'type', type: 'string' }),
             defineField({ name: 'url', type: 'string' }),
-            defineField({ name: 'thumbnail', type: 'string' }),
+            defineField({ name: 'thumbnail', type: 'image', options: { hotspot: true } }),
           ]
         }),
         // Testimonials
@@ -97,7 +98,7 @@ export default defineType({
                   defineField({ name: 'name', type: 'string' }),
                   defineField({ name: 'role', type: 'string' }),
                   defineField({ name: 'feedback', type: 'localeText' }),
-                  defineField({ name: 'image', type: 'string' }),
+                  defineField({ name: 'image', type: 'image', options: { hotspot: true } }),
                 ]
               }]
             }),

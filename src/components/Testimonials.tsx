@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { urlForImage } from "@/lib/sanity.image";
 
 interface TestimonialsProps {
   lang: string;
@@ -38,7 +37,7 @@ export default function Testimonials({ lang, data }: TestimonialsProps) {
               </p>
               <div className="flex items-center gap-5">
                 <img
-                  src={item.image}
+                  src={urlForImage(item.image)}
                   alt={item.name}
                   className="w-16 h-16 rounded-2xl object-cover border-2 border-white/20"
                 />

@@ -3,13 +3,16 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { urlForImage } from "@/lib/sanity.image";
+
 interface HeroProps {
   lang: string;
   data: any;
 }
 
 export default function Hero({ lang, data }: HeroProps) {
-  const isVideo = data.media.type === "video" || data.media.url.includes("youtube.com");
+  const isVideo = data.media.type === "video" || (data.media.url && data.media.url.includes("youtube.com"));
+  const imageUrl = urlForImage(data.media.image) || data.media.url;
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -25,7 +28,7 @@ export default function Hero({ lang, data }: HeroProps) {
           </div>
         ) : (
           <img
-            src={data.media.url}
+            src={imageUrl}
             alt="Hero background"
             className="w-full h-full object-cover"
           />

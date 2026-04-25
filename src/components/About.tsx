@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { urlForImage } from "@/lib/sanity.image";
 
 interface AboutProps {
   lang: string;
@@ -21,7 +21,7 @@ export default function About({ lang, data }: AboutProps) {
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl scale-95 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl" />
               <img
-                src={data.image}
+                src={urlForImage(data.image)}
                 alt="About us"
                 className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-[1.02]"
               />
