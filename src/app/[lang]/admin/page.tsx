@@ -99,33 +99,33 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
           <Input 
             label="Title" 
             value={content.home.hero.title[activeLang]} 
-            onChange={(v) => updateText(["home", "hero", "title", activeLang], v)} 
+            onChange={(v: string) => updateText(["home", "hero", "title", activeLang], v)} 
           />
           <Textarea 
             label="Subtitle" 
             value={content.home.hero.subtitle[activeLang]} 
-            onChange={(v) => updateText(["home", "hero", "subtitle", activeLang], v)} 
+            onChange={(v: string) => updateText(["home", "hero", "subtitle", activeLang], v)} 
           />
           <Input 
             label="CTA Text" 
             value={content.home.hero.cta.text[activeLang]} 
-            onChange={(v) => updateText(["home", "hero", "cta", "text", activeLang], v)} 
+            onChange={(v: string) => updateText(["home", "hero", "cta", "text", activeLang], v)} 
           />
           <div className="grid grid-cols-2 gap-4">
             <Input 
               label="Media URL (Image/YouTube)" 
               value={content.home.hero.media.url} 
-              onChange={(v) => updateText(["home", "hero", "media", "url"], v)} 
+              onChange={(v: string) => updateText(["home", "hero", "media", "url"], v)} 
             />
             <FileUpload 
-              onUpload={(url) => updateText(["home", "hero", "media", "url"], url)} 
+              onUpload={(url: string) => updateText(["home", "hero", "media", "url"], url)} 
             />
           </div>
           <Select 
             label="Media Type" 
             value={content.home.hero.media.type} 
             options={["image", "video"]}
-            onChange={(v) => updateText(["home", "hero", "media", "type"], v)} 
+            onChange={(v: string) => updateText(["home", "hero", "media", "type"], v)} 
           />
         </Section>
 
@@ -134,21 +134,21 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
           <Input 
             label="Heading" 
             value={content.home.about.heading[activeLang]} 
-            onChange={(v) => updateText(["home", "about", "heading", activeLang], v)} 
+            onChange={(v: string) => updateText(["home", "about", "heading", activeLang], v)} 
           />
           <Textarea 
             label="Description" 
             value={content.home.about.description[activeLang]} 
-            onChange={(v) => updateText(["home", "about", "description", activeLang], v)} 
+            onChange={(v: string) => updateText(["home", "about", "description", activeLang], v)} 
           />
           <div className="grid grid-cols-2 gap-4">
             <Input 
               label="Image URL" 
               value={content.home.about.image} 
-              onChange={(v) => updateText(["home", "about", "image"], v)} 
+              onChange={(v: string) => updateText(["home", "about", "image"], v)} 
             />
             <FileUpload 
-              onUpload={(url) => updateText(["home", "about", "image"], url)} 
+              onUpload={(url: string) => updateText(["home", "about", "image"], url)} 
             />
           </div>
         </Section>
@@ -158,16 +158,16 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
           <Input 
             label="Video URL (Embed)" 
             value={content.home.media_section.url} 
-            onChange={(v) => updateText(["home", "media_section", "url"], v)} 
+            onChange={(v: string) => updateText(["home", "media_section", "url"], v)} 
           />
           <div className="grid grid-cols-2 gap-4">
             <Input 
               label="Thumbnail URL" 
               value={content.home.media_section.thumbnail} 
-              onChange={(v) => updateText(["home", "media_section", "thumbnail"], v)} 
+              onChange={(v: string) => updateText(["home", "media_section", "thumbnail"], v)} 
             />
             <FileUpload 
-              onUpload={(url) => updateText(["home", "media_section", "thumbnail"], url)} 
+              onUpload={(url: string) => updateText(["home", "media_section", "thumbnail"], url)} 
             />
           </div>
         </Section>
@@ -177,12 +177,12 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
            <Input 
             label="Email" 
             value={content.home.contact.details.email} 
-            onChange={(v) => updateText(["home", "contact", "details", "email"], v)} 
+            onChange={(v: string) => updateText(["home", "contact", "details", "email"], v)} 
           />
            <Input 
             label="Phone" 
             value={content.home.contact.details.phone} 
-            onChange={(v) => updateText(["home", "contact", "details", "phone"], v)} 
+            onChange={(v: string) => updateText(["home", "contact", "details", "phone"], v)} 
           />
         </Section>
       </main>
@@ -190,7 +190,7 @@ export default function AdminPage({ params }: { params: Promise<{ lang: string }
   );
 }
 
-function Section({ title, icon, children }: any) {
+function Section({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
       <div className="flex items-center gap-3 mb-8 border-b border-gray-50 pb-4">
@@ -206,7 +206,13 @@ function Section({ title, icon, children }: any) {
   );
 }
 
-function Input({ label, value, onChange }: any) {
+interface InputProps {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}
+
+function Input({ label, value, onChange }: InputProps) {
   return (
     <div>
       <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
@@ -220,7 +226,7 @@ function Input({ label, value, onChange }: any) {
   );
 }
 
-function Textarea({ label, value, onChange }: any) {
+function Textarea({ label, value, onChange }: InputProps & { rows?: number }) {
   return (
     <div>
       <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
@@ -234,7 +240,7 @@ function Textarea({ label, value, onChange }: any) {
   );
 }
 
-function Select({ label, value, options, onChange }: any) {
+function Select({ label, value, options, onChange }: InputProps & { options: string[] }) {
   return (
     <div>
       <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
