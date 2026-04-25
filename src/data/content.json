@@ -2,12 +2,12 @@
   "home": {
     "hero": {
       "title": {
-        "en": "Modern Solutions for Your Business",
+        "en": "hi",
         "ta": "உங்கள் வணிகத்திற்கான நவீன தீர்வுகள்",
         "hi": "आपके व्यवसाय के लिए आधुनिक समाधान"
       },
       "subtitle": {
-        "en": "Empowering growth through innovative technology and strategic design.",
+        "en": "yuteka",
         "ta": "புதுமையான தொழில்நுட்பம் மற்றும் மூலோபாய வடிவமைப்பு மூலம் வளர்ச்சியை மேம்படுத்துதல்.",
         "hi": "अभिनव तकनीक और रणनीतिक डिजाइन के माध्यम से विकास को सशक्त बनाना।"
       },
@@ -114,10 +114,26 @@
   },
   "common": {
     "nav": {
-      "home": { "en": "Home", "ta": "முகப்பு", "hi": "होम" },
-      "about": { "en": "About", "ta": "பற்றி", "hi": "बारे में" },
-      "services": { "en": "Services", "ta": "சேவைகள்", "hi": "सेवाएं" },
-      "contact": { "en": "Contact", "ta": "தொடர்பு", "hi": "संपर्क" }
+      "home": {
+        "en": "Home",
+        "ta": "முகப்பு",
+        "hi": "होम"
+      },
+      "about": {
+        "en": "About",
+        "ta": "பற்றி",
+        "hi": "बारे में"
+      },
+      "services": {
+        "en": "Services",
+        "ta": "சேவைகள்",
+        "hi": "सेवाएं"
+      },
+      "contact": {
+        "en": "Contact",
+        "ta": "தொடர்பு",
+        "hi": "संपर्क"
+      }
     },
     "footer": {
       "rights": {

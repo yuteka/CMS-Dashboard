@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { Save, Globe, Image as ImageIcon, Video, Type, Check, Loader2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function AdminPage() {
+export default function AdminPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = use(params);
   const [content, setContent] = useState<any>(null);
-  const [activeLang, setActiveLang] = useState("en");
+  const [activeLang, setActiveLang] = useState(lang || "en");
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -31,13 +32,22 @@ export default function AdminPage() {
   };
 
   const updateText = (path: string[], value: string) => {
-    const newContent = { ...content };
-    let current = newContent;
-    for (let i = 0; i < path.length - 1; i++) {
-      current = current[path[i]];
-    }
-    current[path[path.length - 1]] = value;
-    setContent(newContent);
+    setContent((prev: any) => {
+      const deepUpdate = (obj: any, p: string[], v: any): any => {
+        if (p.length === 0) return v;
+        const [first, ...rest] = p;
+        if (Array.isArray(obj)) {
+          const newArr = [...obj];
+          newArr[Number(first)] = deepUpdate(obj[Number(first)], rest, v);
+          return newArr;
+        }
+        return {
+          ...obj,
+          [first]: deepUpdate(obj ? obj[first] : undefined, rest, v)
+        };
+      };
+      return deepUpdate(prev, path, value);
+    });
   };
 
   if (!content) return (
@@ -107,13 +117,16 @@ export default function AdminPage() {
               value={content.home.hero.media.url} 
               onChange={(v) => updateText(["home", "hero", "media", "url"], v)} 
             />
-            <Select 
-              label="Media Type" 
-              value={content.home.hero.media.type} 
-              options={["image", "video"]}
-              onChange={(v) => updateText(["home", "hero", "media", "type"], v)} 
+            <FileUpload 
+              onUpload={(url) => updateText(["home", "hero", "media", "url"], url)} 
             />
           </div>
+          <Select 
+            label="Media Type" 
+            value={content.home.hero.media.type} 
+            options={["image", "video"]}
+            onChange={(v) => updateText(["home", "hero", "media", "type"], v)} 
+          />
         </Section>
 
         {/* About Section */}
@@ -128,11 +141,16 @@ export default function AdminPage() {
             value={content.home.about.description[activeLang]} 
             onChange={(v) => updateText(["home", "about", "description", activeLang], v)} 
           />
-          <Input 
-            label="Image URL" 
-            value={content.home.about.image} 
-            onChange={(v) => updateText(["home", "about", "image"], v)} 
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <Input 
+              label="Image URL" 
+              value={content.home.about.image} 
+              onChange={(v) => updateText(["home", "about", "image"], v)} 
+            />
+            <FileUpload 
+              onUpload={(url) => updateText(["home", "about", "image"], url)} 
+            />
+          </div>
         </Section>
 
         {/* Media Section */}
@@ -142,11 +160,16 @@ export default function AdminPage() {
             value={content.home.media_section.url} 
             onChange={(v) => updateText(["home", "media_section", "url"], v)} 
           />
-          <Input 
-            label="Thumbnail URL" 
-            value={content.home.media_section.thumbnail} 
-            onChange={(v) => updateText(["home", "media_section", "thumbnail"], v)} 
-          />
+          <div className="grid grid-cols-2 gap-4">
+            <Input 
+              label="Thumbnail URL" 
+              value={content.home.media_section.thumbnail} 
+              onChange={(v) => updateText(["home", "media_section", "thumbnail"], v)} 
+            />
+            <FileUpload 
+              onUpload={(url) => updateText(["home", "media_section", "thumbnail"], url)} 
+            />
+          </div>
         </Section>
 
         {/* Contact Details */}
@@ -169,11 +192,7 @@ export default function AdminPage() {
 
 function Section({ title, icon, children }: any) {
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm"
-    >
+    <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm">
       <div className="flex items-center gap-3 mb-8 border-b border-gray-50 pb-4">
         <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
           {icon}
@@ -183,7 +202,7 @@ function Section({ title, icon, children }: any) {
       <div className="space-y-6">
         {children}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -193,9 +212,9 @@ function Input({ label, value, onChange }: any) {
       <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
       <input
         type="text"
-        value={value}
+        value={value || ""}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/10 focus:border-blue-600 transition-all font-medium"
+        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all font-semibold text-gray-900 shadow-sm placeholder:text-gray-400"
       />
     </div>
   );
@@ -206,10 +225,10 @@ function Textarea({ label, value, onChange }: any) {
     <div>
       <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
       <textarea
-        value={value}
+        value={value || ""}
         onChange={(e) => onChange(e.target.value)}
         rows={4}
-        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/10 focus:border-blue-600 transition-all font-medium"
+        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all font-semibold text-gray-900 shadow-sm placeholder:text-gray-400"
       />
     </div>
   );
@@ -220,14 +239,62 @@ function Select({ label, value, options, onChange }: any) {
     <div>
       <label className="block text-sm font-bold text-gray-700 mb-2">{label}</label>
       <select
-        value={value}
+        value={value || ""}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/10 focus:border-blue-600 transition-all font-medium"
+        className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all font-semibold text-gray-900 shadow-sm cursor-pointer"
       >
         {options.map((opt: string) => (
           <option key={opt} value={opt}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</option>
         ))}
       </select>
+    </div>
+  );
+}
+
+function FileUpload({ onUpload }: { onUpload: (url: string) => void }) {
+  const [uploading, setUploading] = useState(false);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        onUpload(data.url);
+      }
+    } catch (err) {
+      console.error("Upload failed", err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div>
+      <label className="block text-sm font-bold text-gray-700 mb-2">Upload File</label>
+      <div className="relative">
+        <input
+          type="file"
+          onChange={handleFileChange}
+          className="hidden"
+          id="file-upload"
+        />
+        <label
+          htmlFor="file-upload"
+          className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all font-medium text-gray-600"
+        >
+          {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ImageIcon className="w-5 h-5" />}
+          {uploading ? "Uploading..." : "Click to upload"}
+        </label>
+      </div>
     </div>
   );
 }

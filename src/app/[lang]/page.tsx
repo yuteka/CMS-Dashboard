@@ -7,9 +7,9 @@ import MediaSection from "@/components/MediaSection";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 
-export default async function HomePage({ params }: { params: { lang: string } }) {
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
   const content = await getContent();
-  const { lang } = params;
 
   return (
     <main className="bg-white">
